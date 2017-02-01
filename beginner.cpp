@@ -163,6 +163,96 @@ void printBooks(struct Books book);
 
 typedef long int *pint32;
 
+/**class Box {
+    public:
+    double length;//Length of a box
+    double breadth;//Breadth of the box
+    double heigth;//Heigth of a box
+    double getVolume(void);//Returns box volume
+};*/
+
+class Box
+{
+  public:
+    double length;  //Length of a box
+    double breadth; //Breadth of the box
+    double heigth;  //Heigth of a box
+    double getVolume(void);
+    void setLength(double len)
+    {
+        length = len;
+    }
+    void setBreadth(double bre)
+    {
+        breadth = bre;
+    }
+    void setHeight(double hei)
+    {
+        heigth = hei;
+    }
+
+  private:
+    double calculateVolume()
+    {
+        return length * breadth * heigth;
+    }
+
+  protected:
+    double width;
+};
+
+double Box::getVolume(void)
+{
+    return calculateVolume();
+}
+
+class SmallBox : Box
+{
+  public:
+    void setSmallWidth(double wid)
+    {
+        width = wid;
+    }
+    double getSmallWidth(void)
+    {
+        return width;
+    }
+    double width2;
+    SmallBox(void)
+    {
+        cout << "Object is being created" << endl;
+    }
+    double getPtr(void)
+    {
+        return *ptr;
+    }
+    void display(SmallBox box)
+    {
+        cout << "Pointer width: " << box.getPtr() << endl;
+    }
+    SmallBox(double wid)
+    {
+        setSmallWidth(wid);
+        ptr = new int;
+        *ptr = wid;
+    }
+    SmallBox(const SmallBox &obj)
+    {
+        cout << "Copy constructor allocating ptr." << endl;
+        ptr = new int;
+        *ptr = *obj.ptr;
+    }
+    ~SmallBox()
+    {
+        cout << "Freeing memory!" << endl;
+        delete ptr;
+    }
+
+  private:
+    int *ptr;
+};
+
+//main method
 int main()
 {
     count5 = 15;
@@ -350,6 +440,21 @@ int main()
     createBooks();
 
     pint32 x, y, z;
+
+    Box Box1, Box2;
+    Box1.heigth = 5.0;
+    Box1.length = 6.0;
+    Box1.breadth = 7.0;
+    cout << "Volume of Box1: " << Box1.getVolume() << endl;
+    //cout << "Volume of Box1 private: " << Box1.calculateVolume() << endl;
+
+    SmallBox smlbox;
+    smlbox.setSmallWidth(100);
+    cout << "Small box width: " << smlbox.getSmallWidth() << endl;
+
+    SmallBox smlbcnst(5);
+    cout << "Small box width constructor: " << smlbcnst.getSmallWidth() << endl;
+    cout << "Pointer value: " << smlbcnst.getPtr() << endl;
 
     return 0;
 }
